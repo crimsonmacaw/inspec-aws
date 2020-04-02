@@ -1537,11 +1537,11 @@ resource "aws_ec2_transit_gateway" "gateway" {
 data "aws_iam_policy_document" "lambda_test_policy_document" {
 
   statement {
-    effect    = "Allow"
-    actions   = [
+    effect = "Allow"
+    actions = [
       "cloudwatch:PutMetricData"
     ]
-    resources = ["*"]  
+    resources = ["*"]
   }
 }
 
