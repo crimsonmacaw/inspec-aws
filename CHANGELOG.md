@@ -1,9 +1,59 @@
-<!-- latest_release 1.7.1 -->
+<!-- latest_release 1.13.1 -->
+## [v1.13.1](https://github.com/inspec/inspec-aws/tree/v1.13.1) (2020-05-13)
+
+#### Merged Pull Requests
+- Update Travis to use ruby 2.6.3 &amp; rubcop updates [#209](https://github.com/inspec/inspec-aws/pull/209) ([rmoles](https://github.com/rmoles))
+<!-- latest_release -->
+
+## [v1.13.0](https://github.com/inspec/inspec-aws/tree/v1.13.0) (2020-05-12)
+
+#### Merged Pull Requests
+- Resolves #142 Expose S3 bucket object properties [#211](https://github.com/inspec/inspec-aws/pull/211) ([omer-chefio](https://github.com/omer-chefio))
+
+## [v1.12.1](https://github.com/inspec/inspec-aws/tree/v1.12.1) (2020-05-12)
+
+#### Merged Pull Requests
+- Update README for the aws_region parameter [#210](https://github.com/inspec/inspec-aws/pull/210) ([omer-chefio](https://github.com/omer-chefio))
+
+## [v1.12.0](https://github.com/inspec/inspec-aws/tree/v1.12.0) (2020-05-07)
+
+#### Merged Pull Requests
+- Resolves #206 : Filter EC2 instances by tags [#208](https://github.com/inspec/inspec-aws/pull/208) ([omer-chefio](https://github.com/omer-chefio))
+
+## [v1.11.0](https://github.com/inspec/inspec-aws/tree/v1.11.0) (2020-05-06)
+
+#### Merged Pull Requests
+- Fixes #165 : AWS ECR Resources [#204](https://github.com/inspec/inspec-aws/pull/204) ([omer-chefio](https://github.com/omer-chefio))
+
+## [v1.10.0](https://github.com/inspec/inspec-aws/tree/v1.10.0) (2020-04-28)
+
+#### Merged Pull Requests
+- Fixes #184: Add EFS Resource(s) [#198](https://github.com/inspec/inspec-aws/pull/198) ([omer-chefio](https://github.com/omer-chefio))
+
+## [v1.9.0](https://github.com/inspec/inspec-aws/tree/v1.9.0) (2020-04-27)
+
+#### Merged Pull Requests
+- Fixes #141 - Add AWS ElastiCache cluster resources [#201](https://github.com/inspec/inspec-aws/pull/201) ([omer-chefio](https://github.com/omer-chefio))
+
+## [v1.8.2](https://github.com/inspec/inspec-aws/tree/v1.8.2) (2020-04-07)
+
+#### Merged Pull Requests
+- Fixes #158 [#197](https://github.com/inspec/inspec-aws/pull/197) ([omer-chefio](https://github.com/omer-chefio))
+
+## [v1.8.1](https://github.com/inspec/inspec-aws/tree/v1.8.1) (2020-04-02)
+
+#### Merged Pull Requests
+- Add missing documentation links [#195](https://github.com/inspec/inspec-aws/pull/195) ([rmoles](https://github.com/rmoles))
+
+## [v1.8.0](https://github.com/inspec/inspec-aws/tree/v1.8.0) (2020-04-02)
+
+#### Merged Pull Requests
+- Add aws_dhcp_options resource [#194](https://github.com/inspec/inspec-aws/pull/194) ([robbruce](https://github.com/robbruce))
+
 ## [v1.7.1](https://github.com/inspec/inspec-aws/tree/v1.7.1) (2020-03-25)
 
 #### Merged Pull Requests
 - added transit gateway resource, documentation and tests [#193](https://github.com/inspec/inspec-aws/pull/193) ([krystan](https://github.com/krystan))
-<!-- latest_release -->
 
 ## [v1.7.0](https://github.com/inspec/inspec-aws/tree/v1.7.0) (2020-03-23)
 

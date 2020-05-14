@@ -10,7 +10,7 @@ This InSpec resource pack uses the AWS Ruby SDK v3 and provides the required res
 
 ### AWS Credentials
 
-Valid AWS credentials are required, see [AWS Documentation](https://docs.aws.amazon.com/IAM/latest/UserGuide/intro-structure.html#intro-structure-principal))
+Valid AWS credentials are required, see [AWS Documentation](https://docs.aws.amazon.com/IAM/latest/UserGuide/intro-structure.html#intro-structure-principal)
 
 There are multiple ways to set AWS credentials as shown below:
 
@@ -61,6 +61,16 @@ Example `~/.aws/config` :
    2. Credentials set in `~/.aws/credentials` AND `~/.aws/config` AND `AWS_PROFILE` set as an Environment variable.
    3. Credentials set in `~/.aws/credentials` AND `~/.aws/config` AND `AWS_PROFILE` is NOT set as an Environment variable. Default credentials will be used.
    
+### AWS Region
+The `aws_region` parameter can be provided to query resources in a specific region. If not provided, the AWS region set in environment variables or configuration files will be used. 
+
+Example:
+```ruby
+describe aws_ec2_instances(aws_region: 'us-west-2') do
+  its('count') { should eq 10 }
+end
+```
+
 ### Assuming an IAM role
 Assuming an IAM role allows an IAM user to gain additional/different permissions to perform actions in a different AWS account. (See example [aws configure IAM role](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-role.html))
 
@@ -108,19 +118,23 @@ $ inspec exec my-profile -t aws://
 ## Resource documentation
 This resouce pack allows the testing of the following AWS resources. If a resource you wish to test is not listed, please feel free to open an [Issue](https://github.com/inspec/inspec-aws/issues). As an open source project, we also welcome public contributions via [Pull Request](https://github.com/inspec/inspec-aws/pulls).
 
+- [aws_alb](docs/resources/aws_alb.md)
 - [aws_auto_scaling_group](docs/resources/aws_auto_scaling_group.md)
 - [aws_auto_scaling_groups](docs/resources/aws_auto_scaling_groups.md)
+- [aws_cloudformation_stack](docs/resources/aws_cloudformation_stack.md)
 - [aws_cloudtrail_trail](docs/resources/aws_cloudtrail_trail.md)
 - [aws_cloudtrail_trails](docs/resources/aws_cloudtrail_trails.md)
 - [aws_cloudwatch_alarm](docs/resources/aws_cloudwatch_alarm.md)
 - [aws_cloudwatch_log_metric_filter](docs/resources/aws_cloudwatch_log_metric_filter.md)
 - [aws_config_delivery_channel](docs/resources/aws_config_delivery_channel.md)
 - [aws_config_recorder](docs/resources/aws_config_recorder.md)
+- [aws_dhcp_options](docs/resources/aws_dhcp_options.md)
 - [aws_dynamodb_table](docs/resources/aws_dynamodb_table.md)
 - [aws_ebs_volume](docs/resources/aws_ebs_volume.md)
 - [aws_ebs_volumes](docs/resources/aws_ebs_volumes.md)
 - [aws_ec2_instance](docs/resources/aws_ec2_instance.md)
 - [aws_ec2_instances](docs/resources/aws_ec2_instances.md)
+- [aws_ecr](docs/resources/aws_ecr.md)
 - [aws_ecs_cluster](docs/resources/aws_ecs_cluster.md)
 - [aws_ecs_clusters](docs/resources/aws_ecs_clusters.md)
 - [aws_eks_cluster](docs/resources/aws_eks_cluster.md)
@@ -128,17 +142,21 @@ This resouce pack allows the testing of the following AWS resources. If a resour
 - [aws_elb](docs/resources/aws_elb.md)
 - [aws_elbs](docs/resources/aws_elbs.md)
 - [aws_flow_log](docs/resources/aws_flow_log.md)
+- [aws_hosted_zone](docs/resources/aws_hosted_zone.md)
 - [aws_hosted_zones](docs/resources/aws_hosted_zones.md)
 - [aws_iam_access_key](docs/resources/aws_iam_access_key.md)
 - [aws_iam_access_keys](docs/resources/aws_iam_access_keys.md)
 - [aws_iam_account_alias](docs/resources/aws_iam_account_alias.md)
 - [aws_iam_group](docs/resources/aws_iam_group.md)
+- [aws_iam_groups](docs/resources/aws_iam_groups.md)
 - [aws_iam_password_policy](docs/resources/aws_iam_password_policy.md)
 - [aws_iam_policies](docs/resources/aws_iam_policies.md)
 - [aws_iam_policy](docs/resources/aws_iam_policy.md)
 - [aws_iam_role](docs/resources/aws_iam_role.md)
 - [aws_iam_roles](docs/resources/aws_iam_roles.md)
 - [aws_iam_root_user](docs/resources/aws_iam_root_user.md)
+- [aws_iam_saml_provider](docs/resources/aws_iam_saml_provider.md)
+- [aws_iam_saml_providers](docs/resources/aws_iam_saml_providers.md)
 - [aws_iam_user](docs/resources/aws_iam_user.md)
 - [aws_iam_users](docs/resources/aws_iam_users.md)
 - [aws_kms_key](docs/resources/aws_kms_key.md)
@@ -147,7 +165,10 @@ This resouce pack allows the testing of the following AWS resources. If a resour
 - [aws_lambdas](docs/resources/aws_lambdas.md)
 - [aws_launch_configuration](docs/resources/aws_launch_configuration.md)
 - [aws_organizations_member](docs/resources/aws_organizations_member.md)
+- [aws_rds_cluster](docs/resources/aws_rds_cluster.md)
+- [aws_rds_clusters](docs/resources/aws_rds_clusters.md)
 - [aws_rds_instance](docs/resources/aws_rds_instance.md)
+- [aws_rds_instances](docs/resources/aws_rds_instances.md)
 - [aws_region](docs/resources/aws_region.md)
 - [aws_regions](docs/resources/aws_regions.md)
 - [aws_route_table](docs/resources/aws_route_table.md)
@@ -161,6 +182,7 @@ This resouce pack allows the testing of the following AWS resources. If a resour
 - [aws_sns_topic](docs/resources/aws_sns_topic.md)
 - [aws_sns_topics](docs/resources/aws_sns_topics.md)
 - [aws_sqs_queue](docs/resources/aws_sqs_queue.md)
+- [aws_sqs_queues](docs/resources/aws_sqs_queues.md)
 - [aws_sts_caller_identity](docs/resources/aws_sts_caller_identity.md)
 - [aws_subnet](docs/resources/aws_subnet.md)
 - [aws_subnets](docs/resources/aws_subnets.md)
@@ -355,7 +377,7 @@ Valid:       true
 Summary:     0 errors, 1 warnings
 ```
 
-Conversly run using within a docker container, using the make file:
+Conversely run using within a docker container, using the make file:
 
 To run unit tests and linting:
 
@@ -405,7 +427,7 @@ To keep things simple the aws credentials can either be supplied via environment
 
 This just requires docker, docker-compose and make, see [Three Musketeers Pattern](https://3musketeers.io/docs/make.html) for details
 
-Running the integration tests (after `init_workspace` and `setup_integration_tests`):
+Running the integration tests (after `setup_integration_tests`):
 ```
 $ bundle exec rake test:run_integration_tests
 ----> Run

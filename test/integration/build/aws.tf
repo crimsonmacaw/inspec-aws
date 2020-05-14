@@ -55,12 +55,29 @@ variable "aws_delivery_channel_name" {}
 variable "aws_delivery_channel_sns_topic_name" {}
 variable "aws_ebs_volume_name" {}
 variable "aws_ecr_name" {}
+variable "aws_ecr_repository_name" {}
+variable "aws_ecr_repository_image_tag_mutability" {}
+variable "aws_ecr_repository_scan_on_push_enabled" {}
 variable "aws_ecs_cluster_name" {}
+variable "aws_efs_creation_token" {}
+variable "aws_efs_encrypted" {}
+variable "aws_efs_performance_mode" {}
+variable "aws_efs_throughput_mode" {}
+variable "aws_efs_name" {}
+variable "aws_efs_company_name" {}
+variable "aws_efs_count" {}
 variable "aws_eks_cluster_name" {}
 variable "aws_eks_role_name" {}
 variable "aws_eks_subnet_name_1" {}
 variable "aws_eks_subnet_name_2" {}
 variable "aws_eks_vpc_name" {}
+variable "aws_elasticache_cluster_id" {}
+variable "aws_elasticache_cluster_engine" {}
+variable "aws_elasticache_cluster_node_type" {}
+variable "aws_elasticache_cluster_num_cache_nodes" {}
+variable "aws_elasticache_cluster_parameter_group_name" {}
+variable "aws_elasticache_cluster_engine_version" {}
+variable "aws_elasticache_cluster_port" {}
 variable "aws_elb_access_log_name" {}
 variable "aws_elb_access_log_prefix" {}
 variable "aws_elb_name" {}
@@ -206,6 +223,30 @@ resource "aws_ebs_volume" "inspec_ebs_volume" {
 
   tags = {
     Name = var.aws_ebs_volume_name
+  }
+}
+
+resource "aws_efs_file_system" "inspec_efs_file_system" {
+  count             = var.aws_enable_creation
+  creation_token    = var.aws_efs_creation_token
+  encrypted         = var.aws_efs_encrypted
+  throughput_mode   = var.aws_efs_throughput_mode
+  performance_mode  = var.aws_efs_performance_mode
+
+  tags = {
+    Name = var.aws_efs_name
+    companyName = var.aws_efs_company_name
+  }
+}
+
+resource "aws_efs_file_system" "inspec_efs_file_systems" {
+  count             = var.aws_enable_creation * var.aws_efs_count
+  encrypted         = var.aws_efs_encrypted
+  throughput_mode   = var.aws_efs_throughput_mode
+  performance_mode  = var.aws_efs_performance_mode
+
+  tags = {
+    companyName = var.aws_efs_company_name
   }
 }
 
@@ -1517,6 +1558,7 @@ resource "aws_rds_cluster" "rds_cluster" {
 }
 
 resource "aws_rds_cluster_instance" "instance1" {
+  count               = var.aws_enable_creation
   apply_immediately  = true
   cluster_identifier = aws_rds_cluster.rds_cluster.0.cluster_identifier
   identifier         = "instance1"
@@ -1524,6 +1566,7 @@ resource "aws_rds_cluster_instance" "instance1" {
 }
 
 resource "aws_rds_cluster_instance" "instance2" {
+  count               = var.aws_enable_creation
   apply_immediately  = true
   cluster_identifier = aws_rds_cluster.rds_cluster.0.cluster_identifier
   identifier         = "instance2"
@@ -1535,7 +1578,6 @@ resource "aws_ec2_transit_gateway" "gateway" {
 }
 
 data "aws_iam_policy_document" "lambda_test_policy_document" {
-
   statement {
     effect = "Allow"
     actions = [
@@ -1587,8 +1629,6 @@ resource "aws_iam_role_policy_attachment" "lambda_test_execute_attached" {
   policy_arn = data.aws_iam_policy.lambda_execute.arn
 }
 
-
-
 resource "aws_cloudwatch_log_group" "lambda_test_logs" {
   name              = "/aws/lambda/test_lambda"
   retention_in_days = 14
@@ -1607,4 +1647,28 @@ resource "aws_lambda_function" "lambda_test" {
   runtime          = "python3.7"
   publish          = true
   timeout          = 10
+}
+
+resource "aws_elasticache_cluster" "inspec_test_elasticache" {
+  count                = var.aws_enable_creation
+  cluster_id           = var.aws_elasticache_cluster_id
+  engine               = var.aws_elasticache_cluster_engine
+  node_type            = var.aws_elasticache_cluster_node_type
+  num_cache_nodes      = var.aws_elasticache_cluster_num_cache_nodes
+  parameter_group_name = var.aws_elasticache_cluster_parameter_group_name
+  engine_version       = var.aws_elasticache_cluster_engine_version
+  port                 = var.aws_elasticache_cluster_port
+}
+
+resource "aws_ecr_repository" "inspec_test_ecr_repository" {
+  count = var.aws_enable_creation
+  name = var.aws_ecr_repository_name
+  image_tag_mutability = var.aws_ecr_repository_image_tag_mutability
+
+  image_scanning_configuration {
+    scan_on_push = var.aws_ecr_repository_scan_on_push_enabled
+  }
+  tags = {
+    Name        = var.aws_ecr_repository_name
+  }
 }
